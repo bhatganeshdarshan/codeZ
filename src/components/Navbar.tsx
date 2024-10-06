@@ -20,7 +20,7 @@ export default function Navbar(){
     }
 
     return (
-        <nav className="bg-white dark:bg-gray-900 shadow-lg transition-all duration-300">
+        <nav className="bg-white dark:bg-gray-950 shadow-lg transition-all duration-300">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex-shrink-0">
@@ -28,7 +28,7 @@ export default function Navbar(){
                             codeZ
                         </h1>
                     </div>
-                    <div className="hidden md:flex space-x-4">
+                    <div className="hidden md:flex space-x-4 ml-auto px-16">
                         <a href="" className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white">Problems</a>
                         <a href="" className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white">Contests</a>
                         <a href="" className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white">Challenge</a>
