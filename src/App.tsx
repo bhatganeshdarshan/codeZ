@@ -1,16 +1,16 @@
 import React from "react";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Home from "./components/Home";
+import HomePage from "./pages/HomePage";
+import CodeEditor from "./pages/CodeEditor";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 const App: React.FC = () => {
   return (
-    <div>
-      <Navbar></Navbar>
-      <Home />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/code" element={<CodeEditor />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
 export default App;
-
