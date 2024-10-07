@@ -1,16 +1,16 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
-const App : React.FC = () =>{
-    return(
-        <div>
-            <Navbar></Navbar>
-            <h1>Home page text</h1>
-            <h3>desc</h3>
-            <Footer/>
-        </div>
-    );
+import Home from "./components/Home";
+const App: React.FC = () => {
+  return (
+    <div>
+      <Navbar></Navbar>
+      <Home />
+      <Footer />
+    </div>
+  );
 };
 
-export default App ;
+export default App;
+
