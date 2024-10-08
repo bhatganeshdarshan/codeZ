@@ -18,7 +18,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white dark:bg-gray-950 shadow-lg transition-all duration-300">
+    <nav className="bg-white dark:bg-[#171717] shadow-lg transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
@@ -89,4 +89,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
