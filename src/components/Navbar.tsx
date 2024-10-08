@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import { Menu, SunMoon } from "lucide-react";
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
+export default function Navbar({ isDarkMode, toggleDarkMode }) {
+  const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    if (isDarkMode) {
-      document.documentElement.classList.remove("dark");
-    } else {
-      document.documentElement.classList.add("dark");
-    }
-  };
+  //const toggleDarkMode = () => {
+  //setIsDarkMode(!isDarkMode);
+  //if (isDarkMode) {
+  //document.documentElement.classList.remove("dark");
+  //} else {
+  // document.documentElement.classList.add("dark");
+  //}
+  //};
 
   return (
     <nav className="bg-white dark:bg-[#171717] shadow-lg transition-all duration-300">
