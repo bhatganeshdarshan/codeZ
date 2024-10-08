@@ -21,7 +21,7 @@ export const submitCode = async (code: string) => {
 export const checkSubmissionResult = async (token: string) => {
   try {
     const response = await axios.get(
-      `${Judge0Api}/submissions/${token}?base64_encoded=true&fields=stdout,stderr,status_id,language_id,token`,
+      `${Judge0Api}/submissions/${token}?base64_encoded=true&fields=stdout,stderr,status_id,language_id,token,compile_output,status`,
     );
     const data = await response.data;
     return data;

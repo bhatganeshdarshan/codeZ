@@ -139,14 +139,14 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
         console.log("Updated check output:", response);
       }
 
-      const { stdout, stderr, status_id } = response;
+      const { stdout, stderr, status_id, compile_output, status } = response;
 
       if (status_id === 3) {
         setOutput(atob(stdout) || "No output produced.");
       } else if (stderr) {
         setOutput(`Error: ${stderr}`);
       } else {
-        setOutput(`Unknown error: Status ID ${status_id}`);
+        setOutput(`Error : ${status?.description} => ${atob(compile_output)}`);
       }
     } catch (error) {
       setOutput(`Error: ${error.message || error}`);
