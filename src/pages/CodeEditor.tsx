@@ -62,7 +62,7 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
     onChange: (newValue: string) => console.log(newValue),
   };
 
-  const [leftWidth, setLeftWidth] = useState(50);
+  const [leftWidth, setLeftWidth] = useState(70);
   const [isDragging, setIsDragging] = useState(false);
 
   const handleMouseDown = useCallback(() => {
@@ -92,38 +92,43 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
   }, [handleMouseMove, handleMouseUp]);
 
   return (
-    <div>
-      <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-      <div className="flex bg-gray-100 dark:bg-[#212121] h-screen w-screen shadow-lg">
-        <div
-          className="flex h-[85vh] overflow-hidden"
-          style={{ width: `${leftWidth}%` }}
-        >
-          <MonacoEditor
-            height={editorOptions.height}
-            language={editorOptions.language}
-            theme={editorOptions.theme}
-            options={editorOptions.options}
-            value={editorOptions.value}
-            onChange={editorOptions.onChange}
-          />
-        </div>
-        <div
-          className="w-4 bg-gray-300 cursor-col-resize flex items-center justify-center"
-          onMouseDown={handleMouseDown}
-        >
+    <div className="flex-row">
+      <div>
+        <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+        <div className="flex bg-gray-100 dark:bg-[#212121] h-[80vh] w-screen shadow-lg">
           <div
-            className={`transition-opacity duration-300 ${isDragging ? "opacity-100" : "opacity-0"}`}
+            className="flex h-[80vh] overflow-hidden"
+            style={{ width: `${leftWidth}%` }}
           >
-            <GripVertical className="text-gray-600" />
+            <MonacoEditor
+              height={editorOptions.height}
+              language={editorOptions.language}
+              theme={editorOptions.theme}
+              options={editorOptions.options}
+              value={editorOptions.value}
+              onChange={editorOptions.onChange}
+            />
+          </div>
+          <div
+            className="w-4 h-[80vh] bg-gray-300 cursor-col-resize flex items-center justify-center shadow-lg"
+            onMouseDown={handleMouseDown}
+          >
+            <div
+              className={`transition-opacity duration-300 ${isDragging ? "opacity-100" : "opacity-0"}`}
+            >
+              <GripVertical className="text-gray-600" />
+            </div>
+          </div>
+          <div
+            className="overflow-hidden"
+            style={{ width: `${100 - leftWidth}%` }}
+          >
+            <h1>test</h1>
           </div>
         </div>
-        <div
-          className="overflow-hidden"
-          style={{ width: `${100 - leftWidth}%` }}
-        >
-          <h1>test</h1>
-        </div>
+      </div>
+      <div className="flex justify-center items-center h-[11vh] w-full bg-white dark:bg-gray-700">
+        <button className="bg-white">Submit</button>
       </div>
     </div>
   );
