@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
+    "axios": "^1.7.7",
     "lucide-react": "^0.447.0",
     "monaco-editor": "^0.52.0",
     "monaco-editor-core": "^0.52.0",

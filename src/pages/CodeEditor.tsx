@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import MonacoEditor from "@monaco-editor/react";
 import Navbar from "../components/Navbar";
 import { GripVertical } from "lucide-react";
+import { submitCode, checkSubmissionResult } from "../api/executeCode";
 
 interface EditorOptions {
   height: string;
@@ -33,6 +34,8 @@ interface EditorOptions {
 }
 
 export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
+  const [code, setCode] = useState("");
+
   const editorOptions: EditorOptions = {
     height: "100",
     language: "cpp",
@@ -59,12 +62,14 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
       cursorStyle: "line",
     },
     value: "// Write Code Here",
-    onChange: (newValue: string) => console.log(newValue),
+    onChange: (newValue: string) => {
+      setCode(newValue);
+      console.log(code);
+    },
   };
 
   const [leftWidth, setLeftWidth] = useState(70);
   const [isDragging, setIsDragging] = useState(false);
-
   const handleMouseDown = useCallback(() => {
     setIsDragging(true);
   }, []);
@@ -82,6 +87,8 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
     [isDragging],
   );
 
+  const [output, setOutput] = useState("");
+
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
@@ -90,6 +97,61 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
       document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [handleMouseMove, handleMouseUp]);
+
+  // const getOutput = async () => {
+  // try {
+  //console.log("this is my code : ", code);
+  // const token = await submitCode(code);
+  //console.log(token);
+  //const out = await checkSubmissionResult(token);
+  //console.log(out);
+  //const { stdout, stderr, status_id, language_id } = out;
+  //if (status_id?.description == "Accepted") {
+  //  setOutput(stdout);
+  //} else if (stderr) {
+  //  setOutput(`Error : ${stderr} `);
+  //} else {
+  // setOutput(`Unknown error : ${status_id?.description}`);
+  //}
+  //} catch (error) {
+  //    setOutput(`${error}`);
+  //    }
+  //  };
+
+  const getOutput = async () => {
+    try {
+      const token = await submitCode(code);
+      console.log("Submission token:", token);
+
+      const checkStatus = async (token) => {
+        const response = await checkSubmissionResult(token);
+        return response;
+      };
+
+      let response = await checkStatus(token);
+      console.log("Initial check output:", response);
+
+      // Polling loop
+      while (response.status_id === 1) {
+        console.log("Code is still processing...");
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        response = await checkStatus(token);
+        console.log("Updated check output:", response);
+      }
+
+      const { stdout, stderr, status_id } = response;
+
+      if (status_id === 3) {
+        setOutput(atob(stdout) || "No output produced.");
+      } else if (stderr) {
+        setOutput(`Error: ${stderr}`);
+      } else {
+        setOutput(`Unknown error: Status ID ${status_id}`);
+      }
+    } catch (error) {
+      setOutput(`Error: ${error.message || error}`);
+    }
+  };
 
   return (
     <div className="flex-row">
@@ -123,12 +185,16 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
             className="overflow-hidden"
             style={{ width: `${100 - leftWidth}%` }}
           >
-            <h1>test</h1>
+            <h1 className="text-black dark:text-white">
+              {output || "Run your code to get the output here "}
+            </h1>
           </div>
         </div>
       </div>
       <div className="flex justify-center items-center h-[11vh] w-full bg-white dark:bg-gray-700">
-        <button className="bg-white">Submit</button>
+        <button className="bg-white" onClick={getOutput}>
+          Submit
+        </button>
       </div>
     </div>
   );
