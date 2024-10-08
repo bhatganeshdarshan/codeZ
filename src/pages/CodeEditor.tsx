@@ -3,6 +3,7 @@ import MonacoEditor from "@monaco-editor/react";
 import Navbar from "../components/Navbar";
 import { GripVertical } from "lucide-react";
 import { submitCode, checkSubmissionResult } from "../api/executeCode";
+import SubmitButton from "../components/SubmitButton";
 
 interface EditorOptions {
   height: string;
@@ -88,6 +89,7 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
   );
 
   const [output, setOutput] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove);
@@ -119,6 +121,7 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
   //  };
 
   const getOutput = async () => {
+    setLoading(true);
     try {
       const token = await submitCode(code);
       console.log("Submission token:", token);
@@ -148,8 +151,10 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
       } else {
         setOutput(`Error : ${status?.description} => ${atob(compile_output)}`);
       }
+      setLoading(false);
     } catch (error) {
       setOutput(`Error: ${error.message || error}`);
+      setLoading(false);
     }
   };
 
@@ -192,9 +197,7 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
         </div>
       </div>
       <div className="flex justify-center items-center h-[11vh] w-full bg-white dark:bg-gray-700">
-        <button className="bg-white" onClick={getOutput}>
-          Submit
-        </button>
+        <SubmitButton loading={loading} getOutput={getOutput} />
       </div>
     </div>
   );
