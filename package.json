@@ -13,16 +13,17 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.2",
     "autoprefixer": "^10.4.20",
+    "monaco-editor-webpack-plugin": "^7.1.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.5.3",
     "vite": "^5.4.8"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
     "lucide-react": "^0.447.0",
     "monaco-editor": "^0.52.0",
     "monaco-editor-core": "^0.52.0",
-    "monaco-editor-webpack-plugin": "^7.1.0",
     "monaco-languageclient": "^8.8.3",
     "next": "^14.2.14",
     "react": "^18.3.1",

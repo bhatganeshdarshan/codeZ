@@ -1,5 +1,6 @@
-import MonacoEditor from "react-monaco-editor";
-import Navbar from "../components/Navbar";
+import React from "react";
+import MonacoEditor from "@monaco-editor/react";
+ // Adjust the import according to your project structure
 
 interface EditorOptions {
   height: string;
@@ -32,7 +33,7 @@ interface EditorOptions {
 
 export default function CodeEditor() {
   const editorOptions: EditorOptions = {
-    height: "400",
+    height: "400px", // Set the height with 'px' for consistency
     language: "javascript",
     theme: "vs-dark",
     options: {
@@ -41,7 +42,6 @@ export default function CodeEditor() {
       autoIndent: "full",
       contextmenu: true,
       fontFamily: "monospace",
-
       fontSize: 13,
       lineHeight: 24,
       hideCursorInOverviewRuler: true,
@@ -57,14 +57,15 @@ export default function CodeEditor() {
       readOnly: false,
       cursorStyle: "line",
     },
-    value: " // Write Code Here ",
+    value: "// Write Code Here", // Initial placeholder text
     onChange: (newValue: string) => console.log(newValue),
   };
+
   return (
     <div>
-      <Navbar />
+      
       <div className="flex bg-gray-100 dark:bg-[#212121] h-screen w-screen shadow-lg">
-        <div className="flex h-24 w-screen">
+        <div className="flex h-full w-full">
           <MonacoEditor
             height={editorOptions.height}
             language={editorOptions.language}
