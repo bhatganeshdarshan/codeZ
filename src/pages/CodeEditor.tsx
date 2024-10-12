@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { GripVertical } from "lucide-react";
 import { submitCode, checkSubmissionResult } from "../api/executeCode";
 import SubmitButton from "../components/SubmitButton";
+import DropDownUp from "../components/DropDownUp";
 
 interface EditorOptions {
   height: string;
@@ -198,6 +199,7 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
       </div>
       <div className="flex justify-center items-center h-[11vh] w-full bg-white dark:bg-gray-700">
         <SubmitButton loading={loading} getOutput={getOutput} />
+        <DropDownUp />
       </div>
     </div>
   );
