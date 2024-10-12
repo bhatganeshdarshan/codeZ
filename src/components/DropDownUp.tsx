@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChevronUp, Languages } from "lucide-react";
 
 export default function DropDownUp() {
   const [isExpand, setIsExpand] = useState(false);
   const languages = ["C++", "Python", "JavaScript", "Java"];
   const [selectLang, setSelectLang] = useState(languages[0]);
+
+  const dropRef = useRef(null);
 
   function toggleDropdown() {
     setIsExpand(!isExpand);
@@ -15,8 +17,20 @@ export default function DropDownUp() {
     setIsExpand(false);
   }
 
+  useEffect(() => {
+    function handleClicks(event) {
+      if (dropRef.current && !dropRef.current.contains(event.target)) {
+        setIsExpand(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClicks);
+    return () => {
+      document.removeEventListener("mousedown", handleClicks);
+    };
+  }, [dropRef]);
+
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block" ref={dropRef}>
       {" "}
       <button
         type="button"
