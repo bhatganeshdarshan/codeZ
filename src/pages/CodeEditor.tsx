@@ -35,12 +35,35 @@ interface EditorOptions {
   onChange: (newValue: string) => void;
 }
 
+
 export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
-  const [code, setCode] = useState("");
+  let initCode = "";
+  const [code, setCode] = useState(initCode);
+  const langs = [['cpp',54],['java',62],['javascript',63],['python',71]];
+  const [language,setLanguage] = useState(langs[0][0]);
+  const [langCode , setLangCode] = useState(langs[0][1]);
+
+
+  useEffect(() => {
+    fetch(`/lang/${language}.txt`)
+      .then((response) => response.text())
+      .then((data) => {
+        initCode = data;
+        setCode(initCode);
+      })
+      .catch((error) => {
+        console.error("couldnt fetch code ", error);
+      });
+  }, [language]);
+
+  function changeLanguage(idx : number){
+    setLanguage(langs[idx][0] as string);
+    setLangCode(langs[idx][1] as number) ;
+  }
 
   const editorOptions: EditorOptions = {
     height: "100",
-    language: "cpp",
+    language: language as string,
     theme: isDarkMode ? "vs-dark" : "vs",
     options: {
       selectOnLineNumbers: true,
@@ -63,7 +86,7 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
       readOnly: false,
       cursorStyle: "line",
     },
-    value: "// Write Code Here",
+    value: code,
     onChange: (newValue: string) => {
       setCode(newValue);
       console.log(code);
@@ -124,7 +147,7 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
   const getOutput = async () => {
     setLoading(true);
     try {
-      const token = await submitCode(code);
+      const token = await submitCode(code,langCode as number);
       console.log("Submission token:", token);
 
       const checkStatus = async (token) => {
@@ -199,7 +222,7 @@ export default function CodeEditor({ isDarkMode, toggleDarkMode }) {
       </div>
       <div className="flex justify-center items-center h-[11vh] w-full bg-white dark:bg-gray-700">
         <SubmitButton loading={loading} getOutput={getOutput} />
-        <DropDownUp />
+        <DropDownUp language = {language} changeLanguage = {changeLanguage} />
       </div>
     </div>
   );

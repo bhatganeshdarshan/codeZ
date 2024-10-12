@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ChevronUp, Languages } from "lucide-react";
 
-export default function DropDownUp() {
+export default function DropDownUp({language,changeLanguage}) {
   const [isExpand, setIsExpand] = useState(false);
-  const languages = ["C++", "Python", "JavaScript", "Java"];
+  const languages = ["C++", "Java", "JavaScript", "Python"];
   const [selectLang, setSelectLang] = useState(languages[0]);
 
   const dropRef = useRef(null);
@@ -14,6 +14,7 @@ export default function DropDownUp() {
 
   function selectLanguage(idx: number) {
     setSelectLang(languages[idx]);
+    changeLanguage(idx);
     setIsExpand(false);
   }
 

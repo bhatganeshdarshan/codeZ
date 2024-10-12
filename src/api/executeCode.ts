@@ -3,10 +3,10 @@ import axios from "axios";
 const Judge0Api = "http://localhost:2358";
 
 // to submit code to judge0
-export const submitCode = async (code: string) => {
+export const submitCode = async (code: string , lang : number) => {
   try {
     const response = await axios.post(`${Judge0Api}/submissions/`, {
-      language_id: 52,
+      language_id: lang,
       source_code: code,
     });
     return response.data.token;
