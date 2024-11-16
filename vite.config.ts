@@ -6,6 +6,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ["monaco-editor"],
   },
+  assetsInclude : ["**/*.md"]  , 
   build: {
     rollupOptions: {
       output: {

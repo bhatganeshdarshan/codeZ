@@ -6,6 +6,7 @@ import Contest from "./pages/Contest";
 import Problems from "./pages/Problems";
 import Challenge from "./pages/Challenge";
 import NotFound from "./pages/NotFound";
+import ProblemDetail from "./pages/ProblemDetail";
 const App: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -41,6 +42,11 @@ const App: React.FC = () => {
         <Route path="/problems" element={<Problems isDarkMode ={isDarkMode} toggleDarkMode ={toggleDarkMode} />} />
         <Route path="/challenge" element={<Challenge />} />
         <Route path="*" element={<NotFound />} />
+        <Route
+  path="/problems/:id"
+  element={<ProblemDetail isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />}
+/>
+
       </Routes>
     </BrowserRouter>
   );

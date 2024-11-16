@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 type Difficulty = "Easy" | "Medium" | "Hard";
@@ -31,20 +32,6 @@ const questions: Question[] = [
     description:
       "Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.",
   },
-  {
-    id: 4,
-    title: "Valid Parentheses",
-    difficulty: "Easy",
-    description:
-      "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.",
-  },
-  {
-    id: 5,
-    title: "LRU Cache",
-    difficulty: "Medium",
-    description:
-      "Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.",
-  },
 ];
 
 const difficultyColors: Record<Difficulty, string> = {
@@ -60,6 +47,12 @@ export default function Problems({
   isDarkMode: boolean;
   toggleDarkMode: () => void;
 }) {
+  const navigate = useNavigate();
+
+  const handleProblemClick = (id: number) => {
+    navigate(`/problems/${id}`);
+  };
+
   return (
     <>
       <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
@@ -77,9 +70,10 @@ export default function Problems({
             {questions.map((question) => (
               <div
                 key={question.id}
-                className={`p-4 border rounded-lg ${
+                className={`p-4 border rounded-lg cursor-pointer ${
                   isDarkMode ? "border-gray-700" : "border-gray-300"
                 } hover:shadow-md transition-shadow`}
+                onClick={() => handleProblemClick(question.id)}
               >
                 <div className="flex justify-between items-center">
                   <h2 className="text-xl font-semibold">{question.title}</h2>
