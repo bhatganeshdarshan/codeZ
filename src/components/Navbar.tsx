@@ -3,9 +3,15 @@ import { Menu, SunMoon } from "lucide-react";
 
 export default function Navbar({ isDarkMode, toggleDarkMode }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isProfileOpen , setProfileOpen] = useState(false);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const toggleProfileOpen = () =>{
+    setProfileOpen(!isProfileOpen);
+    console.log("profile : ",isProfileOpen); 
+  }
 
   //const toggleDarkMode = () => {
   //setIsDarkMode(!isDarkMode);
@@ -53,6 +59,36 @@ export default function Navbar({ isDarkMode, toggleDarkMode }) {
               <SunMoon onClick={toggleDarkMode} className="" />
             </button>
           </div>
+          <div className="w-7 h-7 mx-5 rounded-full border border-transparent hover:border-blue-500 transition duration-300">
+            <img src="https://avatar.iran.liara.run/public/13" alt="avatar" className="w-full h-full rounded-full" onClick={
+              ()=>{
+                toggleProfileOpen();
+              }
+            }/>
+          </div>
+          {isProfileOpen && (
+              <div className="absolute right-0 mt-44 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg overflow-hidden z-10">
+                <a
+                  href="/profile"
+                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                >
+                  My Profile
+                </a>
+                <a
+                  href="/settings"
+                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                >
+                  Settings
+                </a>
+                <button
+                  onClick={() => alert("Logged Out!")}
+                  className="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+
           <div className="md:hidden flex items-center">
             <button
               onClick={toggleMenu}
