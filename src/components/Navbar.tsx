@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import { Menu, SunMoon } from "lucide-react";
+import { Link } from "react-router-dom";
 
-export default function Navbar({ isDarkMode, toggleDarkMode }) {
+interface NavbarProps {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
+
+
+export default function Navbar({ isDarkMode, toggleDarkMode }:NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen , setProfileOpen] = useState(false);
+  
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -13,17 +22,17 @@ export default function Navbar({ isDarkMode, toggleDarkMode }) {
     console.log("profile : ",isProfileOpen); 
   }
 
-  //const toggleDarkMode = () => {
-  //setIsDarkMode(!isDarkMode);
-  //if (isDarkMode) {
-  //document.documentElement.classList.remove("dark");
-  //} else {
+  // const toggleDarkMode = () => {
+  // setIsDarkMode(!isDarkMode);
+  // if (isDarkMode) {
+  // document.documentElement.classList.remove("dark");
+  // } else {
   // document.documentElement.classList.add("dark");
-  //}
-  //};
+  // }
+  // };
 
   return (
-    <nav className="bg-white dark:bg-[#171717] shadow-lg transition-all duration-300">
+    <nav className="bg-white dark:bg-[#171717] shadow-lg transition-all duration-300 z-10">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
@@ -32,12 +41,12 @@ export default function Navbar({ isDarkMode, toggleDarkMode }) {
             </h1>
           </div>
           <div className="hidden md:flex space-x-4 ml-auto px-16">
-            <a
-              href="/problems"
-              className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white"
-            >
-              Problems
-            </a>
+          <Link
+  to="/problems"
+  className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white"
+>
+  Problems
+</Link>
             <a
               href="/contests"
               className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white"

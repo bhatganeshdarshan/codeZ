@@ -11,6 +11,7 @@ const App: React.FC = () => {
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
+    console.log(isDarkMode);
     if (isDarkMode) {
       document.documentElement.classList.remove("dark");
     } else {
@@ -37,7 +38,7 @@ const App: React.FC = () => {
           }
         />
         <Route path="/contests" element={<Contest />} />
-        <Route path="/problems" element={<Problems />} />
+        <Route path="/problems" element={<Problems isDarkMode ={isDarkMode} toggleDarkMode ={toggleDarkMode} />} />
         <Route path="/challenge" element={<Challenge />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
