@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import HomePage from "./pages/HomePage";
 import CodeEditor from "./pages/CodeEditor";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -8,18 +8,20 @@ import Challenge from "./pages/Challenge";
 import NotFound from "./pages/NotFound";
 import ProblemDetail from "./pages/ProblemDetail";
 const App: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(
+    () => localStorage.getItem("isDarkMode") === "true"
+  );
 
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    console.log(isDarkMode);
-    if (isDarkMode) {
-      document.documentElement.classList.remove("dark");
-    } else {
-      document.documentElement.classList.add("dark");
-    }
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem("isDarkMode", newMode.toString());
+    document.documentElement.classList.toggle("dark", newMode); 
   };
 
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDarkMode); 
+  }, [isDarkMode]);
   return (
     <BrowserRouter>
       <Routes>
